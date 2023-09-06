@@ -17,7 +17,7 @@ REAL FUNCTION mean(vals)
 
     ! sum the values
     sum = 0
-    DO i = 0, 10
+    DO i = 0, 9
         sum = sum + vals(i)
     END DO
 
@@ -26,6 +26,33 @@ REAL FUNCTION mean(vals)
 
     RETURN
 END FUNCTION mean
+
+
+!---------------------------------------------------------------------------------------------------
+! std(vals)
+! Calculates and returns the standard deviation of an array of 10 floating point values.
+! param vals: An array of 10 floating point values
+! return: The standard deviation of vals
+!---------------------------------------------------------------------------------------------------
+REAL FUNCTION std(vals)
+    IMPLICIT NONE
+    REAL, DIMENSION(5) :: vals
+    REAL :: mean_val
+    REAL :: sum_diffs           ! the sum of the differences of the values and the mean
+
+    ! formula: std = sqrt((sum 0:9(vals(i) - mean_val)^2)/9)
+    mean_val = mean(vals)
+    ! calculate sum_diffs
+    sum_diffs = 0
+    DO i = 0, 9
+        sum_diffs = sum_diffs + (vals(i) - mean)
+    END DO
+
+    ! calculate std
+    std = SQRT((sum_diffs ** 2) / 9)
+
+    RETURN
+END FUNCTION std
 
 
 PROGRAM stats
