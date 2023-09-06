@@ -76,8 +76,12 @@ PROGRAM stats
     REAL :: val_mean, val_min, val_max, val_std     ! create vars for stats
     CHARACTER*10 :: format_string = '(A, F64.2)'    ! 10-character format string for output
 
-    ! TODO get values from grades.dat
-
+    ! get values from grades.dat
+    ! 1 is the unit number that indicates the file
+    OPEN(1, FILE='grades.dat', ACCESS='SEQUENTIAL', FORM='FORMATTED', RECL=10)
+    ! read the values from the file into the array
+    READ(1, *) vals
+    CLOSE(1)
 
     ! compute stats
     val_mean = mean(vals)
