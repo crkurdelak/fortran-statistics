@@ -46,18 +46,19 @@ MODULE stats_fns
         REAL FUNCTION std(vals)
             REAL vals(0:9)
             REAL :: mean_val
-            REAL :: sum_diffs           ! the sum of the differences of the values and the mean
+            ! the sum of the squares of the differences of the values and the mean
+            REAL :: sum_sq_diffs
 
-            ! formula: std = sqrt((sum 0:9(vals(i) - mean_val)^2)/9)
+            ! formula: std = sqrt((sum 0:9((vals(i) - mean_val)^2))/9)
             mean_val = mean(vals)
-            ! calculate sum_diffs
+            ! calculate sum_sq_diffs
             sum_diffs = 0
             DO i = 0, 9
-                sum_diffs = sum_diffs + (vals(i) - mean_val)
+                sum_sq_diffs = sum_sq_diffs + (vals(i) - mean_val) ** 2
             END DO
 
             ! calculate std
-            std = SQRT((sum_diffs ** 2) / 9)
+            std = SQRT((sum_sq_diffs) / 9)
 
             RETURN
         END FUNCTION std
@@ -68,7 +69,6 @@ END MODULE stats_fns
 ! stats
 ! Reads exactly 10 floating point values from a file and computes and prints their statistics
 !---------------------------------------------------------------------------------------------------
-
 PROGRAM stats
     USE stats_fns
     ! define vars
